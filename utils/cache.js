@@ -1,14 +1,13 @@
 const mongoose = require('mongoose')
 const redis = require('redis')
-const { REDIS_URI, REDIS_PORT } = require('../config/config')
+const { REDIS_URI, REDIS_PORT, REDIS_PASSWORD } = require('../config/config')
 
 const client = redis.createClient({
   socket: {
     host: REDIS_URI,
     port: REDIS_PORT
   },
-  username: process.env.REDIS_USERNAME,
-  password: process.env.REDIS_PASSWORD,
+  password: REDIS_PASSWORD,
   disableOfflineQueue: true
 })
 // client.hmGet = util.promisify(client.hmGet)
@@ -31,12 +30,10 @@ mongoose.Query.prototype.exec = async function () {
     collection: this.mongooseCollection.name
   }))
   try {
-    console.log(key)
-
     const cachedValue = await client.hmGet(this.hashKey, key)
     if (cachedValue) {
       const parsedCache = JSON.parse(cachedValue)
-
+      console.log('Used cache')
       return Array.isArray(parsedCache)
         ? parsedCache.map(doc => new this.model(doc))
         : new this.model(parsedCache)
@@ -46,6 +43,7 @@ mongoose.Query.prototype.exec = async function () {
   }
 
   const result = await exec.apply(this, arguments)
+  console.log('Used database')
 
   client.hSet(this.hashKey, key, JSON.stringify(result), 'EX', 300).catch(err => console.log(err))
 
