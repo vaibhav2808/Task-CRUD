@@ -3,11 +3,16 @@ const app = express()
 const routes = require('./routes')
 const cors = require('cors')
 const errorHandler = require('./middleware/errorHandler')
+const morgan = require('morgan')
 
 app.use(express.json())
 
 // CORS
 app.use(cors())
+app.options('*', cors())
+
+// Logger
+app.use(morgan('dev'))
 
 // Routes
 app.use('/api', routes)
