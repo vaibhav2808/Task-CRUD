@@ -1,0 +1,36 @@
+{
+  "name": "task-crud",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaibhav2808/Task-CRUD.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vaibhav2808/Task-CRUD/issues"
+  },
+  "homepage": "https://github.com/vaibhav2808/Task-CRUD#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "http-status": "^1.6.2",
+    "mongoose": "^7.0.0",
+    "morgan": "^1.10.0",
+    "redis": "^4.6.5"
+  },
+  "devDependencies": {
+    "eslint": "^8.35.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1"
+  }
+}
